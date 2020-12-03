@@ -72,6 +72,6 @@ class Voiture {
   }
 
   toString(string) {
-    console.log(string);
+    return `Le véhicule immatriculé ${this.registration} est de couleur ${this.color}. Il a une puissance de ${this.horsepower} chevaux.`;
   }
 }
