@@ -26,7 +26,7 @@ class Voiture {
     console.log(
       `Vous avez ${this.niveauEssence}/${this.tankCapacity}L dans le réservoir et souhaitez ajouter ${fuelQuantity}L`
     );
-    if (fuelQuantity + this.niveauEssence < this.tankCapacity) {
+    if (fuelQuantity + this.niveauEssence <= this.tankCapacity) {
       this.niveauEssence += fuelQuantity;
       console.log(
         `Vous avez maintenant ${this.niveauEssence}L dans le réservoir`
@@ -37,14 +37,18 @@ class Voiture {
   }
 
   seDeplacer(distance, medianSpeed) {
-    if (medianSpeed < 50) {
-      this.consumptionCalcul(distance, 10.0);
-    } else if (medianSpeed >= 50 && medianSpeed < 90) {
-      this.consumptionCalcul(distance, 5.0);
-    } else if (medianSpeed >= 90 && medianSpeed < 130) {
-      this.consumptionCalcul(distance, 8.0);
-    } else if (medianSpeed > 130) {
-      this.consumptionCalcul(distance, 12.0);
+    if (this.assure == true) {
+      if (medianSpeed < 50) {
+        this.consumptionCalcul(distance, 10.0);
+      } else if (medianSpeed >= 50 && medianSpeed < 90) {
+        this.consumptionCalcul(distance, 5.0);
+      } else if (medianSpeed >= 90 && medianSpeed < 130) {
+        this.consumptionCalcul(distance, 8.0);
+      } else if (medianSpeed > 130) {
+        this.consumptionCalcul(distance, 12.0);
+      }
+    } else {
+      console.log("Veuillez assurer votre véhicule avant de l'utliser");
     }
   }
 
@@ -66,12 +70,8 @@ class Voiture {
       );
     }
   }
+
+  toString(string) {
+    console.log(string);
+  }
 }
-
-test = new Voiture("ABCDEF89", "rouge", 900, 100, 50.0, 5);
-
-console.log(test);
-test.repeindre("vert");
-test.repeindre("vert");
-test.mettreEssence(25);
-test.seDeplacer(500, 50);
