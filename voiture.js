@@ -11,6 +11,10 @@ class Voiture {
   }
 
   repeindre(changeColor) {
+    if (typeof changeColor != "string") {
+      return `Merci d'indiquer une couleur.`;
+    }
+
     if (changeColor != this.color) {
       this.color = changeColor;
       return `Couleur changée pour : ${this.color}`;
@@ -20,6 +24,9 @@ class Voiture {
   }
 
   mettreEssence(addedFuel) {
+    if (typeof addedFuel != "number") {
+      return `Merci d'indiquer un nombre.`;
+    }
     if (addedFuel + this.fuelQuantity <= this.tankCapacity) {
       this.fuelQuantity += addedFuel;
       return `Après un passage a la station, vous avez maintenant ${this.fuelQuantity}L dans le réservoir`;
@@ -29,6 +36,10 @@ class Voiture {
   }
 
   seDeplacer(distance, medianSpeed) {
+    if (typeof distance != "number" || typeof medianSpeed != "number") {
+      return `Merci d'indiquer un nombre pour la distance et la vitesse moyenne.`;
+    }
+
     if (this.assure == true) {
       if (medianSpeed < 50) {
         return this.consumptionCalcul(distance, 10.0);
