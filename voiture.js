@@ -6,72 +6,67 @@ class Voiture {
     this.horsepower = horsepower;
     this.tankCapacity = tankCapacity;
     this.nbPlaces = nbPlaces;
-    this.niveauEssence = 5.0;
+    this.fuelQuantity = 5.0;
     this.assure = false;
-    this.dashboardMsg = "Bienvenue dans votre nouveau véhicule";
   }
 
   repeindre(changeColor) {
     if (changeColor != this.color) {
       this.color = changeColor;
-      console.log("Couleur changée pour " + this.color);
+      return `Couleur changée pour : ${this.color}`;
     } else {
-      console.log(
-        "Merci pour le rappel, la couleur de la voiture est : " + this.color
-      );
+      return `Merci pour le rappel, la couleur de la voiture est : ${this.color}`;
     }
   }
 
-  mettreEssence(fuelQuantity) {
-    console.log(
-      `Vous avez ${this.niveauEssence}/${this.tankCapacity}L dans le réservoir et souhaitez ajouter ${fuelQuantity}L`
-    );
-    if (fuelQuantity + this.niveauEssence <= this.tankCapacity) {
-      this.niveauEssence += fuelQuantity;
-      console.log(
-        `Vous avez maintenant ${this.niveauEssence}L dans le réservoir`
-      );
+  mettreEssence(addedFuel) {
+    if (addedFuel + this.fuelQuantity <= this.tankCapacity) {
+      this.fuelQuantity += addedFuel;
+      return `Après un passage a la station, vous avez maintenant ${this.fuelQuantity}L dans le réservoir`;
     } else {
-      console.log(`Vous ne pouvez ajouter autant de carburant !`);
+      return `Vous ne pouvez ajouter autant de carburant !`;
     }
   }
 
   seDeplacer(distance, medianSpeed) {
     if (this.assure == true) {
       if (medianSpeed < 50) {
-        this.consumptionCalcul(distance, 10.0);
+        return this.consumptionCalcul(distance, 10.0);
       } else if (medianSpeed >= 50 && medianSpeed < 90) {
-        this.consumptionCalcul(distance, 5.0);
+        return this.consumptionCalcul(distance, 5.0);
       } else if (medianSpeed >= 90 && medianSpeed < 130) {
-        this.consumptionCalcul(distance, 8.0);
+        return this.consumptionCalcul(distance, 8.0);
       } else if (medianSpeed > 130) {
-        this.consumptionCalcul(distance, 12.0);
+        return this.consumptionCalcul(distance, 12.0);
       }
     } else {
-      console.log("Veuillez assurer votre véhicule avant de l'utliser");
+      return "Veuillez assurer votre véhicule avant de l'utliser";
     }
   }
 
   consumptionCalcul(distance, consumption) {
     let consommation = distance * (consumption / 100);
-    console.log(`Vous allez consommer ${consommation}L`);
 
-    if (consommation > this.niveauEssence) {
-      console.log(
-        "Vous ne pouvez vous déplacer autant sans ajouter de carburant"
-      );
+    if (consommation > this.fuelQuantity) {
+      return `Vous ne pouvez vous déplacer autant sans ajouter ${
+        consommation - this.fuelQuantity
+      }L de carburant`;
     } else {
-      console.log(
-        `Vous aviez ${this.niveauEssence}/${this.tankCapacity}L avant le déplacement`
-      );
-      this.niveauEssence -= consommation;
-      console.log(
-        `Vous avez maintenant ${this.niveauEssence}/${this.tankCapacity}L !`
-      );
+      this.fuelQuantity -= consommation;
+      return `Vous avez maintenant ${this.fuelQuantity}/${this.tankCapacity}L dans le réservoir !`;
     }
   }
 
-  toString(string) {
+  setInsurance() {
+    this.assure = !this.assure;
+    if (this.assure == true) {
+      return "Votre véhicule est maintenant assuré";
+    } else {
+      return "Votre véhicule n'est plus assuré";
+    }
+  }
+
+  toString() {
     return `Le véhicule immatriculé ${this.registration} est de couleur ${this.color}. Il a une puissance de ${this.horsepower} chevaux.`;
   }
 }
