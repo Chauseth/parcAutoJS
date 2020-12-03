@@ -48,9 +48,24 @@ class Voiture {
     }
   }
 
-  consumptionCalcul(distance, consumption) {}
+  consumptionCalcul(distance, consumption) {
+    let consommation = distance * (consumption / 100);
+    console.log(`Vous allez consommer ${consommation}L`);
 
-  toString(string) {}
+    if (consommation > this.niveauEssence) {
+      console.log(
+        "Vous ne pouvez vous déplacer autant sans ajouter de carburant"
+      );
+    } else {
+      console.log(
+        `Vous aviez ${this.niveauEssence}/${this.tankCapacity}L avant le déplacement`
+      );
+      this.niveauEssence -= consommation;
+      console.log(
+        `Vous avez maintenant ${this.niveauEssence}/${this.tankCapacity}L !`
+      );
+    }
+  }
 }
 
 test = new Voiture("ABCDEF89", "rouge", 900, 100, 50.0, 5);
@@ -58,4 +73,5 @@ test = new Voiture("ABCDEF89", "rouge", 900, 100, 50.0, 5);
 console.log(test);
 test.repeindre("vert");
 test.repeindre("vert");
-test.mettreEssence(35.5);
+test.mettreEssence(25);
+test.seDeplacer(500, 50);
